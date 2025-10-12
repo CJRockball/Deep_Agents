@@ -22,9 +22,23 @@ Projects are split into folders, each representing an independent agent implemen
 
 ## Current Folder Structure
 
-- `Agent/` — Specialized agent prototypes (e.g. stateful agents, tool-using approaches)
-- `Basic_deepagent/` — Minimal example agents to illustrate LangGraph concepts
-- `deep_academic_agent/` — Agents with academic/learning-focused features
+**Basic_deepagent Project**
+This is a minimal, educational implementation of LangGraph's `create_deep_agent` function, designed to showcase the core ideas behind deep agents for complex, multi-step tasks. It demonstrates:
+
+- Planning via automatic TODO lists
+- Use of sub-agents for research and reflection (context specialization)
+- A virtual file system for persistent memory and state
+- Comprehensive system prompts for advanced reasoning
+- The agent can search the web (using the Tavily API), plan, research, reflect, and iterate on results, demonstrating architecture and tool integration in a simple, learnable form. This project is best for learning or experimentation with deep agent patterns and LangGraph tooling.
+
+**Agent Project**
+This folder contains multiple agent implementations, including the **minimal_research_agent** and **academic_paper_tool** subprojects:
+
+- **minimal_research_agent**: A streamlined LangGraph ReAct agent that tests academic paper search and processing. It takes a research topic and question, finds and processes relevant academic papers, and uses a 9-stage pipeline to answer user queries with citations. It integrates with an academic paper tool for searching, downloading, processing, and querying papers, and provides detailed step-by-step agent reasoning.
+- **academic_paper_tool**: (based on folder structure) Appears to be a modular set of scripts and configs for automated academic paper handling, likely supporting downloading, processing, and querying of academic literature, possibly for reuse by research-focused agents.
+
+In summary, the **Agent** folder offers more specialized and modular agent implementations aimed at academic research and workflow automation.
+
 
 _Folders will expand as additional agent demos and experiments are added. Each represents a standalone investigation into agentic workflows, checkpointing, tool use, or persistent state logic according to the LangGraph paradigm._
 
