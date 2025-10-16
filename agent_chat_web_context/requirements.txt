@@ -1,0 +1,115 @@
+# IntelliFinQ Agent - Python Dependencies
+# Financial Q&A Agent with Memory, Context, and Web Search
+# Python 3.11+
+
+# ========================================
+# Core Agent Framework
+# ========================================
+langgraph>=0.0.32
+langchain-core>=0.2.24
+langchain-openai>=0.1.1
+langchain-community>=0.2.0
+
+# ========================================
+# LLM Providers
+# ========================================
+openai>=1.3.5
+google-genai>=0.3.0        # Optional: for Gemini embeddings
+google-api-core>=2.15.0    # For retry handling with Gemini
+
+# ========================================
+# Web Framework & API
+# ========================================
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+jinja2>=3.1.2
+python-multipart>=0.0.6
+
+# ========================================
+# Database Clients
+# ========================================
+# PostgreSQL
+sqlalchemy>=2.0.23
+psycopg2-binary>=2.9.9
+alembic>=1.12.1            # Optional: for database migrations
+
+# MongoDB
+pymongo>=4.6.0
+
+# Neo4j
+neo4j>=5.14.1
+
+# ========================================
+# Vector Store & Embeddings
+# ========================================
+faiss-cpu>=1.7.4
+# For GPU acceleration (optional):
+# faiss-gpu>=1.7.4
+
+# Alternative: Local embedding models (optional)
+sentence-transformers>=2.2.2
+
+# ========================================
+# Web Scraping & Content Processing
+# ========================================
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+markdownify>=0.11.6
+html2text>=2024.2.26       # Alternative to markdownify
+
+# ========================================
+# Search Tools
+# ========================================
+tavily-python>=0.3.0       # Tavily search API client
+# Alternative search providers (optional):
+# duckduckgo-search>=4.1.0
+# googlesearch-python>=1.2.3
+
+# ========================================
+# Data Processing & Utilities
+# ========================================
+numpy>=1.24.0
+pandas>=2.0.0              # Optional: for data analysis
+python-dotenv>=1.0.0
+
+# ========================================
+# Validation & Type Checking
+# ========================================
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# ========================================
+# Logging & Monitoring (Optional)
+# ========================================
+loguru>=0.7.2              # Enhanced logging
+python-json-logger>=2.0.7  # JSON structured logging
+
+# ========================================
+# Rate Limiting & Retry
+# ========================================
+tenacity>=8.2.3            # Generic retry library
+backoff>=2.2.1             # Exponential backoff decorator
+
+# ========================================
+# Testing & Development (Optional)
+# ========================================
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0              # For testing FastAPI
+black>=23.11.0             # Code formatting
+ruff>=0.1.6                # Linting
+mypy>=1.7.0                # Type checking
+
+# ========================================
+# Security & Authentication (Optional)
+# ========================================
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6
+
+# ========================================
+# Production Deployment (Optional)
+# ========================================
+gunicorn>=21.2.0           # WSGI server for production
+prometheus-client>=0.19.0  # Metrics collection
+sentry-sdk>=1.39.0         # Error tracking
