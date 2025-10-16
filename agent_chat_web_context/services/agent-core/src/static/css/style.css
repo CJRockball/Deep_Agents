@@ -1,0 +1,47 @@
+/* IntelliFinQ Chat Styles */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+#chat-container {
+    width: 600px;
+    background: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+#chat-window {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+.message {
+    margin-bottom: 15px;
+}
+.message.user {
+    text-align: right;
+}
+.message.agent {
+    text-align: left;
+}
+#chat-form {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+#chat-form button {
+    padding: 0 20px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
