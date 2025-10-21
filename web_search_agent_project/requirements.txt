@@ -1,0 +1,47 @@
+# Updated requirements.txt with Tavily and content processing dependencies
+# Python core
+asyncio
+python-dotenv
+
+# Database drivers
+asyncpg>=0.29.0              # PostgreSQL async driver
+redis[hiredis]>=5.0.0        # Redis with performance extensions
+sqlalchemy[asyncio]>=2.0.0   # SQLAlchemy with async support
+alembic>=1.12.0              # Database migrations
+
+# Vector database
+chromadb>=0.4.0              # ChromaDB for embeddings
+
+# Web framework (prepared for FastAPI)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# LLM and agent frameworks
+langchain>=0.1.0
+langchain-community>=0.1.0
+langchain-openai>=0.0.5
+langgraph>=0.0.20
+
+# Search and retrieval
+rank-bm25>=0.2.2             # BM25 implementation
+sentence-transformers>=2.2.0  # For embeddings and cross-encoder
+
+# Web scraping and content processing (NEW - for full functionality)
+httpx>=0.25.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+trafilatura>=1.6.0
+markdownify>=0.11.6          # HTML to Markdown conversion
+tavily-python>=0.3.0         # Tavily API client (optional, can use requests)
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+
+# Utilities
+loguru>=0.7.0                # Enhanced logging
+tenacity>=8.2.0              # Retry logic
+pyyaml>=6.0.0

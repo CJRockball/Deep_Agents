@@ -1,0 +1,66 @@
+
+services:
+  # PostgreSQL database
+  postgres:
+    image: postgres:15-alpine
+    container_name: web_search_postgres
+    environment:
+      POSTGRES_USER: agent_user
+      POSTGRES_PASSWORD: agent_password
+      POSTGRES_DB: web_search_agent
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent_user -d web_search_agent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agent_network
+
+  # Redis cache
+  redis:
+    image: redis:7-alpine
+    container_name: web_search_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - agent_network
+
+  #ChromaDB (optional - can use local file-based)
+  #Uncomment if you want ChromaDB as a service
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: web_search_chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+    networks:
+      - agent_network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  chroma_data:
+    driver: local
+
+networks:
+  agent_network:
+    driver: bridge
