@@ -1,0 +1,27 @@
+test_index,question_id,question_type,question,ground_truth_answer,agent_answer,simple_score,latency_ms,error,timestamp
+0,e47becba,single-session-user,What degree did I graduate with?,Business Administration,"Based on our previous conversations, you graduated with a Bachelor's degree in Business Administration from the University of Michigan (context 12) and a Master's degree in Computer Science with a focus on AI from Stanford University (context 4).",0.8,11707.761287689209,,2025-11-03T13:32:45.734934
+1,118b2229,single-session-user,How long is my daily commute to work?,45 minutes each way,"Okay, based on our previous conversations, I know the following:
+
+*   You live in the city center.
+*   You take the bus to work.
+*   The bus ride takes around 35 minutes.
+*   You need to leave for work at 8:45 am on regular days and 8:15 am on days with morning meetings.
+*   It takes you 45 minutes to get ready.
+*   You want to spend 30 minutes eating breakfast.
+
+Therefore, your daily commute to work is approximately **35 minutes** each way.",1.0,15992.880821228027,,2025-11-03T13:33:01.730973
+2,51a45a95,single-session-user,Where did I redeem a $5 coupon on coffee creamer?,Target,"Based on our previous conversations, you redeemed a $5 coupon on coffee creamer last Sunday. I don't have the specific store where you redeemed it.",0.0,3874.2058277130127,,2025-11-03T13:33:05.606231
+3,58bf7951,single-session-user,What play did I attend at the local community theater?,The Glass Menagerie,"Based on our previous conversations, you attended a production of ""The Glass Menagerie"" at the local community theater (Conversation 10).",0.8,8768.015384674072,,2025-11-03T13:33:14.375148
+4,1e043500,single-session-user,What is the name of the playlist I created on Spotify?,Summer Vibes,"Based on our previous conversations, the name of the playlist you created on Spotify is ""Summer Vibes"".",0.8,9892.340660095215,,2025-11-03T13:33:24.268539
+5,c5e8278d,single-session-user,What was my last name before I changed it?,Johnson,"Based on our previous conversations, your last name before you changed it was Wilson. You were previously married to John Wilson and changed your name to Emily Rose Thompson.",0.0,9973.001718521118,,2025-11-03T13:33:34.243172
+6,6ade9755,single-session-user,Where do I take yoga classes?,Serenity Yoga,"To provide the best recommendations, I need a little more information. Could you please tell me:
+
+1.  **Your current location (neighborhood, city, or zip code)?** This will allow me to find studios near you.
+2.  **What kind of yoga are you interested in?** (e.g., Hatha, Vinyasa, Restorative, something else, or are you open to anything?)
+3.  **What is your availability?** (Morning, evening, weekends?)
+4.  **Do you have any specific preferences?** (Heated room, specific amenities, beginner-friendly, etc.)
+
+Once I have this information, I can use online search tools to find yoga studios and classes that fit your needs.",0.5,9848.263263702393,,2025-11-03T13:33:44.092582
+7,6f9b354f,single-session-user,What color did I repaint my bedroom walls?,a lighter shade of gray,"Based on our conversation history, you repainted your bedroom walls a lighter shade of gray.",0.8,9472.967386245728,,2025-11-03T13:33:53.566604
+8,58ef2f1c,single-session-user,When did I volunteer at the local animal shelter's fundraising dinner?,February 14th,"Based on our previous conversations, you volunteered at the ""Love is in the Air"" fundraising dinner back in February (Conversation 6) and on Valentine's Day (Conversation 9).",0.5,10231.312274932861,,2025-11-03T13:34:03.798892
+9,f8c5f88b,single-session-user,Where did I buy my new tennis racket from?,the sports store downtown,"Based on our previous conversations, you bought your new tennis racket from a sports store downtown (2) and also online from Amazon (17).",0.75,8799.03531074524,,2025-11-03T13:34:12.598995

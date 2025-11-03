@@ -1,0 +1,182 @@
+# Updated Docker Compose for IntelliFinQ Agent Platform
+# With explicit volume names and improved configuration
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: intellifinq-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: agent_platform
+      POSTGRES_USER: agent_user
+      POSTGRES_PASSWORD: agent_pass_2025
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-sql:/docker-entrypoint-initdb.d:ro
+    networks:
+      - agent_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent_user -d agent_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      com.intellifinq.service: "database"
+      com.intellifinq.backup: "daily"
+
+  # MongoDB Database
+  mongo:
+    image: mongo:7
+    container_name: intellifinq-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin_pass_2025
+      MONGO_INITDB_DATABASE: agent_memory
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
+      - ./init-mongo:/docker-entrypoint-initdb.d:ro
+    networks:
+      - agent_network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      com.intellifinq.service: "database"
+      com.intellifinq.backup: "daily"
+
+  # Neo4j Graph Database
+  neo4j:
+    image: neo4j:5-community
+    container_name: intellifinq-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/neo4j_pass_2025
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_memory_pagecache_size: 512M
+      NEO4J_dbms_memory_heap_initial__size: 512M
+      NEO4J_dbms_memory_heap_max__size: 1G
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+      NEO4J_dbms_security_procedures_allowlist: apoc.*
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/var/lib/neo4j/import
+      - ./init-neo4j:/docker-entrypoint-initdb.d:ro
+    networks:
+      - agent_network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      com.intellifinq.service: "database"
+      com.intellifinq.backup: "weekly"
+
+  # pgAdmin (Optional - PostgreSQL Management UI)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: intellifinq-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@intellifinq.local
+      PGADMIN_DEFAULT_PASSWORD: admin_2025
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - agent_network
+    depends_on:
+      - postgres
+    labels:
+      com.intellifinq.service: "admin-ui"
+
+  # Mongo Express (Optional - MongoDB Management UI)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: intellifinq-mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin_pass_2025
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin_pass_2025@mongo:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin_2025
+    ports:
+      - "8081:8081"
+    networks:
+      - agent_network
+    depends_on:
+      - mongo
+    labels:
+      com.intellifinq.service: "admin-ui"
+
+# Named volumes with explicit configuration
+volumes:
+  postgres_data:
+    name: intellifinq_postgres_data
+    driver: local
+    labels:
+      com.intellifinq.description: "PostgreSQL data for conversation history"
+      com.intellifinq.backup: "critical"
+  
+  mongo_data:
+    name: intellifinq_mongo_data
+    driver: local
+    labels:
+      com.intellifinq.description: "MongoDB data for document storage"
+      com.intellifinq.backup: "critical"
+  
+  mongo_config:
+    name: intellifinq_mongo_config
+    driver: local
+    labels:
+      com.intellifinq.description: "MongoDB configuration"
+  
+  neo4j_data:
+    name: intellifinq_neo4j_data
+    driver: local
+    labels:
+      com.intellifinq.description: "Neo4j graph database data"
+      com.intellifinq.backup: "important"
+  
+  neo4j_logs:
+    name: intellifinq_neo4j_logs
+    driver: local
+    labels:
+      com.intellifinq.description: "Neo4j log files"
+  
+  neo4j_import:
+    name: intellifinq_neo4j_import
+    driver: local
+    labels:
+      com.intellifinq.description: "Neo4j import directory"
+  
+  pgadmin_data:
+    name: intellifinq_pgadmin_data
+    driver: local
+    labels:
+      com.intellifinq.description: "pgAdmin configuration and preferences"
+
+# Custom network for inter-container communication
+networks:
+  agent_network:
+    name: intellifinq_network
+    driver: bridge
+    labels:
+      com.intellifinq.description: "Internal network for IntelliFinQ services"

@@ -1,0 +1,22 @@
+{
+  "total_tests": 10,
+  "successful_runs": 10,
+  "failed_runs": 0,
+  "avg_latency_ms": 9855.978393554688,
+  "median_latency_ms": 9870.301961898804,
+  "simple_score_mean": 0.595,
+  "simple_score_median": 0.775,
+  "score_distribution": {
+    "0.6-0.8": 5.0,
+    "0-0.2": 2.0,
+    "0.4-0.6": 2.0,
+    "0.8-1.0": 1.0,
+    "0.2-0.4": 0.0
+  },
+  "by_type": {
+    "single-session-user": {
+      "count": 10,
+      "avg_score": 0.595
+    }
+  }
+}
